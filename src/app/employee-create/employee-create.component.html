@@ -1,0 +1,188 @@
+<!--<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm)">-->
+<!--  <div class="panel panel-primary">-->
+<!--    <div class="panel-heading">-->
+<!--      <h3 class="panel-title">Create Employee</h3>-->
+<!--    </div>-->
+<!--    <div class="panel-body">-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Last Name</label>-->
+<!--        <input id="lastName" name="lastName" [(ngModel)]="lastName" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>First Name</label>-->
+<!--        <input id="firstName" name="firstName" [(ngModel)]="firstName" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Gender</label>-->
+<!--        <input id="gender" name="gender" [(ngModel)]="gender" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Company</label>-->
+<!--        <input id="company" name="company" [(ngModel)]="company" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Department</label>-->
+<!--        <input id="department" name="department" [(ngModel)]="department" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Email</label>-->
+<!--        <input id="email" name="email" [(ngModel)]="email" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Phone</label>-->
+<!--        <input id="phones" name="phones" [(ngModel)]="phones" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Date of Birth </label>-->
+<!--        <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Address</label>-->
+<!--        <input id="address" name="address" [(ngModel)]="address" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>PhotoPath</label>-->
+<!--        <input id="photoPath" name="photoPath" [(ngModel)]="photoPath" type="text" class="form-control">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label>Is Active?</label>-->
+<!--        <input id="isActive" name="isActive" [(ngModel)]="isActive" type="text" class="form-control">-->
+<!--      </div>-->
+<!--      -->
+<!--    </div>-->
+<!--    <div class="panel-footer">-->
+<!--      //在ngForm提交表单使，type一定是"submit"-->
+<!--      <button type="submit" class="btn btn-primary">save</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
+
+<!--////////////////////////////////////////////上课的内容：-->
+<form [formGroup]="employeeForm" (ngSubmit)="saveEmployeeFormGroup()">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Employee</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="form-group"
+           [class.has-error]="employeeForm.get('lastName').invalid && employeeForm.get('lastName').touched"
+           [class.has-success]="employeeForm.get('lastName').valid">
+        <label class="control-label">Last Name</label>
+        <input formControlName="lastName" type="text" class="form-control">
+        <span class="help-block" *ngIf="employeeForm.get('lastName').touched && employeeForm.get('lastName').invalid">
+          Last Name is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>First Name</label>
+        <input formControlName="firstName" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="form-control">
+          <label class="radio-inline">
+            <input formControlName="gender" value="Male" name="gender" type="radio"> Male
+          </label>
+          <label class="radio-inline">
+            <input formControlName="gender" value="Female" name="gender" type="radio"> Female
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Company</label>
+        <input formControlName="company" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Department</label>
+        <input formControlName="department" name="department" type="text" class="form-control">
+      </div>
+
+
+      <div class="form-group" [class.has-error]="employeeForm.get('email').invalid
+                               && employeeForm.get('email').touched">
+        <label class="control-label">Email</label>
+        <input formControlName="email" type="text" class="form-control">
+        <div class="help-block" *ngIf="employeeForm.get('email').touched && employeeForm.get('email').invalid">
+           <span class="help-block" *ngIf="employeeForm.get('email').errors.required">
+            Email is required
+          </span>
+          <span class="help-block " *ngIf="employeeForm.get('email').errors.email">
+            Email format is not correct
+          </span>
+        </div>
+      </div>
+
+      <!--Another way to write the error validation:
+      the "?" after error called angular safety navigation operator to check if property null or undefined-->
+<!--      <div class="form-group" [class.has-error]="employeeForm.get('email').invalid-->
+<!--                               && employeeForm.get('email').touched">-->
+<!--        <label class="control-label">Email</label>-->
+<!--        <input formControlName="email" type="text" class="form-control">-->
+<!--        <span class="help-block"-->
+<!--              *ngIf="employeeForm.get('email').errors?.required && employeeForm.get('email').touched">-->
+<!--            Email is required-->
+<!--          </span>-->
+<!--        <span class="help-block " *ngIf="employeeForm.get('email').errors?.email && employeeForm.get('email').touched ">-->
+<!--            Email format is not correct-->
+<!--          </span>-->
+<!--      </div>-->
+
+
+      <div class="form-group">
+        <label>Phone</label>
+        <input formControlName="phones" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Date of Birth </label>
+        <input formControlName="dateOfBirth" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <input formControlName="address" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>PhotoPath</label>
+        <input formControlName="photoPath" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Is Active?</label>
+        <div class="form-control">
+          <label class="radio-inline">
+            <input formControlName="isActive" value="true" name="isActive" type="radio">True
+          </label>
+          <label class="radio-inline">
+            <input formControlName="isActive" value="false" name="isActive" type="radio">False
+          </label>
+        </div>
+      </div>
+
+    </div>
+    <div class="panel-footer">
+      <!--      在ngForm提交表单使，type一定是"submit"-->
+      <button type="submit" class="btn btn-primary">save</button>
+    </div>
+  </div>
+</form>
+
+
+{{employeeForm.value | json}}

@@ -1,0 +1,219 @@
+{{errorMsg}}
+<!--{{employees | json}}-->
+<div class="vertical-align">
+  <div class="form-group">
+    <input type="text" class="form-control" (keydown)="onKeypress($event.code)"
+           placeholder="Search By Name" style="width: 300px"
+           [(ngModel)]="searchByName">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" (click)="searchByNameFn()">Search</button>
+  </div>
+
+  <div class="form-group" style="margin-left: 100px">
+    <input type="text" class="form-control" placeholder="Search By Department" style="width: 300px"
+           [(ngModel)]="searchByDepartment">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" (click)="searchByDepartmentFn()">Search</button>
+  </div>
+
+</div>
+
+
+<div class="panel panel-info">
+  <div class="panel-heading ">
+    <h3>Searched Result: </h3>
+    <h4 *ngIf="emptySearchResult">No Matching Result</h4>
+  </div>
+
+  <div *ngFor="let searched of searchedEmployee">
+    <app-employee-search-child [searched]="searched"></app-employee-search-child>
+  </div>
+</div>
+<!--    <div class="panel-body">-->
+<!--      <div class="col-xs-10">-->
+<!--        <div class="row vertical-align ">-->
+<!--          <div class="col-xs-4">-->
+<!--            <img class="imageClass" [src]="searched.photoPath" alt="Photo is not found">-->
+<!--          </div>-->
+<!--          <div class="col-xs-8">-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Gender-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.gender}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Company-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.company}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Department-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.department}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Email-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.email}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Phone-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                <div *ngFor="let eachPhone of searched.phones">-->
+<!--                  <div>-->
+<!--                    : {{eachPhone.area}}-{{eachPhone.prefix}}-{{eachPhone.line}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Date of Birth-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.dateOfBirth | date}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Address-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.address}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size:small ">-->
+<!--              <div class="col-xs-6">-->
+<!--                Is active-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{searched.isActive}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="form-group">
+  <h3>Employee List</h3>
+</div>
+<div *ngFor="let forEmployee of employees">
+  <app-employee-list-child [forEmployee]="forEmployee"
+                           (deleteEmployee)="removeEmployee($event)"
+                            ></app-employee-list-child>
+
+</div>
+
+
+<!--Parent codes-->
+<!--    <div class="panel-heading">-->
+<!--      <h3 class="panel-title">{{forEmployee.firstName}} {{forEmployee.lastName}}</h3>-->
+<!--    </div>-->
+<!--    <div class="panel-body">-->
+<!--      <div class="col-xs-10">-->
+<!--        <div class="row vertical-align ">-->
+<!--          <div class="col-xs-4">-->
+<!--            <img class="imageClass" [src]="forEmployee.photoPath" alt="Photo is not found">-->
+<!--          </div>-->
+<!--          <div class="col-xs-8">-->
+
+<!--            <div class="row" style="font-size: small" >-->
+<!--              <div class="col-xs-6">-->
+<!--                Gender-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.gender}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Company-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.company}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Department-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.department}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Email-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.email}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Phone-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                <div *ngFor="let eachPhone of forEmployee.phones">-->
+<!--                  <div>-->
+<!--                    : {{eachPhone.area}}-{{eachPhone.prefix}}-{{eachPhone.line}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Date of Birth-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.dateOfBirth | date}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="font-size: small">-->
+<!--              <div class="col-xs-6">-->
+<!--                Address-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.address}}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" style="font-size:small ">-->
+<!--              <div class="col-xs-6">-->
+<!--                Is active-->
+<!--              </div>-->
+<!--              <div class="col-xs-6">-->
+<!--                : {{forEmployee.isActive}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->

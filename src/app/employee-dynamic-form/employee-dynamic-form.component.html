@@ -1,0 +1,172 @@
+<!--这里很重要，在Dynamic Form里面，首先不能和[(ngModel)]公用，另外(ngSubmit)后面跟的函数很重要，
+在创建post函数时，取的是value,这个value可以在这里写，最好是在ts逻辑里写。
+  还有在Form里面任何一个button在没有特色定义下都会提交内存，
+  所以在普通功能的button属性里面要写上："type:button"-->
+<!--<script src="employee-dynamic-form.component.ts"></script>-->
+
+<form [formGroup]="employeeDynamicForm" (ngSubmit)="createNewEmployee(employeeDynamicForm)">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Employee</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="form-group" [class.has-error]="employeeDynamicForm.get('lastName').invalid
+                              && employeeDynamicForm.get('lastName').touched"
+           [class.has-success]="employeeDynamicForm.get('lastName').valid">
+        <label class="control-label">Last Name</label>
+        <input formControlName="lastName" type="text" class="form-control">
+        <span class="help-block"
+              *ngIf="employeeDynamicForm.get('lastName').touched && employeeDynamicForm.get('lastName').invalid">
+          Last Name is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>First Name</label>
+        <input formControlName="firstName" type="text" class="form-control">
+      </div>
+
+
+      <div class="form-group" [class.has-error]="employeeDynamicForm.get('gender').invalid
+                              && employeeDynamicForm.get('gender').touched">
+        <label>Gender</label>
+        <div class="form-control">
+          <label class="radio-inline">
+            <input formControlName="gender" value="Male" name="gender" type="radio"> Male
+          </label>
+          <label class="radio-inline">
+            <input formControlName="gender" value="Female" name="gender" type="radio"> Female
+          </label>
+          <span class="help-block"
+                *ngIf="employeeDynamicForm.get('gender').touched && employeeDynamicForm.get('gender').invalid">
+            Gender is required
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Company</label>
+        <input formControlName="company" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Department</label>
+        <input formControlName="department"  type="text" class="form-control">
+      </div>
+
+
+      <div class="form-group" [class.has-error]="employeeDynamicForm.get('email').invalid
+                               && employeeDynamicForm.get('email').touched">
+        <label class="control-label">Email</label>
+        <input formControlName="email" type="text" class="form-control">
+        <div class="help-block"
+             *ngIf="employeeDynamicForm.get('email').touched && employeeDynamicForm.get('email').invalid">
+           <span class="help-block" *ngIf="employeeDynamicForm.get('email').errors.required">
+            Email is required
+          </span>
+          <span class="help-block " *ngIf="employeeDynamicForm.get('email').errors.email">
+            Email format is not correct
+          </span>
+        </div>
+      </div>
+
+      <!--Another way to write the error validation:
+      the "?" after error called angular safety navigation operator to check if property null or undefined-->
+      <!--      <div class="form-group" [class.has-error]="employeeForm.get('email').invalid-->
+      <!--                               && employeeForm.get('email').touched">-->
+      <!--        <label class="control-label">Email</label>-->
+      <!--        <input formControlName="email" type="text" class="form-control">-->
+      <!--        <span class="help-block"-->
+      <!--              *ngIf="employeeForm.get('email').errors?.required && employeeForm.get('email').touched">-->
+      <!--            Email is required-->
+      <!--          </span>-->
+      <!--        <span class="help-block " *ngIf="employeeForm.get('email').errors?.email && employeeForm.get('email').touched ">-->
+      <!--            Email format is not correct-->
+      <!--          </span>-->
+      <!--      </div>-->
+
+      <div class="form-group" [class.has-error]="employeeDynamicForm.get('phones').invalid
+                               && employeeDynamicForm.get('phones').touched">
+        <label>Phone</label>
+        <!--注意下面是用formArrayName="phones",对应ts里面phones的类型是array, 而且名字不是静态表里的"phone"      -->
+        <div formArrayName="phones">
+          <!--using "get" function to replace part of this like below:
+          <div *ngFor="let phoneList of employeeDynamicForm.get('phones') as phoneArrey">-->
+          <!-- 另外这里get method: phonesControl 后面一定要加一个control ？？？？？？？？？？？？？？？？？？？-->
+          <div *ngFor="let phoneList of phonesControl.controls; index as i " [formGroupName]="i">
+            <div>
+              <label>Area: </label>
+              <input class="form-group" style="width: 200px; border-radius: 5px" type="text" formControlName="area">
+              <label style="margin-left: 20px">Prefix: </label>
+              <input class="form-group" style="width: 200px; border-radius: 5px" type="text" formControlName="prefix">
+              <label style="margin-left: 20px">Line: </label>
+              <input class="form-group" style="width: 200px; border-radius: 5px" type="text" formControlName="line">
+              <button class="deleteBtn" (click)="deletePhones(i)"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          </div>
+        </div>
+        <!--type is very important as if not button type here, it will perform the submit function        -->
+        <button class="btn btn-primary" type="button" (click)="addPhones()">Add phones</button>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="employeeDynamicForm.get('dateOfBirth').invalid
+                               && employeeDynamicForm.get('dateOfBirth').touched">
+        <label>Date of Birth </label>
+        <input formControlName="dateOfBirth" type="date" class="form-control">
+        <span class="help-block"
+              *ngIf="employeeDynamicForm.get('dateOfBirth').errors?.required && employeeDynamicForm.get('dateOfBirth').touched ">
+          Date of Birth is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <input formControlName="address" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>PhotoPath</label>
+        <input formControlName="photoPath" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Is Active?</label>
+        <div class="form-control">
+          <label class="radio-inline">
+            <input formControlName="isActive" value="true" name="isActive" type="radio">True
+          </label>
+          <label class="radio-inline">
+            <input formControlName="isActive" value="false" name="isActive" type="radio">False
+          </label>
+        </div>
+      </div>
+
+    </div>
+    <div class="panel-footer">
+      <!--      在ngForm提交表单使，type一定是"submit"-->
+      <button type="submit" class="btn btn-primary" *ngIf="!employee?.id"
+              [disabled]="employeeDynamicForm.invalid">Save
+      </button>
+      <button *ngIf="employee?.id" type="button" (click)="updateEmployeeFn(employeeDynamicForm)"
+              class="btn btn-primary">Update</button>
+
+      <a class="btn btn-primary pull-right" routerLink="/employee">Back to List</a>
+    </div>
+  </div>
+</form>
+
+
+{{employeeDynamicForm.value | json}}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

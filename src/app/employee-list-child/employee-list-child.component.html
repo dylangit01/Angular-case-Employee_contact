@@ -1,0 +1,97 @@
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{forEmployee.firstName | uppercase}} {{forEmployee.lastName | uppercase}}</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="col-xs-10">
+      <div class="row vertical-align ">
+        <div class="col-xs-4">
+          <img class="imageClass" [src]="forEmployee.photoPath" alt="Photo is not found">
+        </div>
+        <div class="col-xs-8">
+
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Gender
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.gender}}
+            </div>
+          </div>
+
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Company
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.company}}
+            </div>
+          </div>
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Department
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.department}}
+            </div>
+          </div>
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Email
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.email}}
+            </div>
+          </div>
+
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Phone
+            </div>
+            <div class="col-xs-6">
+              <div *ngFor="let eachPhone of forEmployee.phones">
+                <div>
+                  : {{eachPhone.area}}-{{eachPhone.prefix}}-{{eachPhone.line}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Date of Birth
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.dateOfBirth | date}}
+            </div>
+          </div>
+          <div class="row" style="font-size: small">
+            <div class="col-xs-6">
+              Address
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.address}}
+            </div>
+          </div>
+
+          <div class="row" style="font-size:small ">
+            <div class="col-xs-6">
+              Is active
+            </div>
+            <div class="col-xs-6">
+              : {{forEmployee.isActive}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-footer">
+    <button (click)="viewEmployee(forEmployee)" class="btn btn-primary">View</button>
+    <button (click)="editEmployee(forEmployee)" class="btn btn-primary">Edit</button>
+    <button (click)="deleteEmployeeFn()" class="btn btn-danger">Delete</button>
+  </div>
+</div>

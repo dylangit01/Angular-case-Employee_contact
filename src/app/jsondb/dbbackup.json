@@ -1,0 +1,94 @@
+{
+  "employee": [
+    {
+      "id": 1,
+      "lastName": "John",
+      "firstName": "Mark",
+      "gender": "Male",
+      "company": "Loblaw",
+      "department": "IT",
+      "email": "mark@2win.com",
+      "phones": [
+        {
+          "area": "001",
+          "prefix": "647",
+          "line": "3849088"
+        },
+        {
+          "area": "001",
+          "prefix": "647",
+          "line": "7295632"
+        },
+        {
+          "area": "001",
+          "prefix": "647",
+          "line": "6386120"
+        }
+      ],
+      "dateOfBirth": "10/25/1988",
+      "address": "345 Toronto Road",
+      "photoPath": "assets/images/11.jpg",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "lastName": "Sue",
+      "firstName": "Lisa",
+      "gender": "Female",
+      "company": "Wal-mart",
+      "department": "HR",
+      "email": "Suel@123.com",
+      "phones": [
+        {
+          "area": "010",
+          "prefix": "182",
+          "line": "23849649"
+        },
+        {
+          "area": "010",
+          "prefix": "172",
+          "line": "28349560"
+        },
+        {
+          "area": "010",
+          "prefix": "163",
+          "line": "98578391"
+        }
+      ],
+      "dateOfBirth": "02/18/1990",
+      "address": "293 Mississauga Road",
+      "photoPath": "assets/images/22.jpg",
+      "isActive": false
+    },
+    {
+      "id": 3,
+      "lastName": "Du",
+      "firstName": "Liweng",
+      "gender": "Male",
+      "company": "Google",
+      "department": "IT",
+      "email": "Dyson2@gmail.com",
+      "phones": [
+        {
+          "area": "001",
+          "prefix": "192",
+          "line": "1236479"
+        },
+        {
+          "area": "002",
+          "prefix": "384",
+          "line": "5648212"
+        },
+        {
+          "area": "003",
+          "prefix": "190",
+          "line": "2840284"
+        }
+      ],
+      "dateOfBirth": "11/28/1984",
+      "address": "888 Mississauga Road",
+      "photoPath": "assets/images/33.jpg",
+      "isActive": true
+    }
+  ]
+}
